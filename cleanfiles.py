@@ -1,27 +1,27 @@
 import json
 
-# Funzione per sostituire le sigle delle province con i nomi delle province
-def sostituisci_province(dati):
-    for elemento in dati:
-        if elemento["provincia"] in provincie:
-            elemento["provincia"] = provincie[elemento["provincia"]]
-    return dati
+# Function to replace province abbreviations with province names
+def replace_provinces(data):
+    for element in data:
+        if element["provincia"] in provinces:
+            element["provincia"] = provinces[element["provincia"]]
+    return data
 
-# Funzione per eliminare i campi specificati da ogni elemento della lista
-def elimina_campi(dati):
-    campi_da_eliminare = ["istat", "prefisso", "cod_fisco", "num_residenti", "superficie", "cf"]
-    for elemento in dati:
-        for campo in campi_da_eliminare:
-            if campo in elemento:
-                del elemento[campo]
-    return dati
+# Function to remove specified fields from each element of the list
+def remove_fields(data):
+    fields_to_remove = ["istat", "prefisso", "cod_fisco", "num_residenti", "superficie", "cf"]
+    for element in data:
+        for field in fields_to_remove:
+            if field in element:
+                del element[field]
+    return data
 
-# Carica il file JSON
+# Load the JSON file
 with open('italy-cities.json', encoding='utf-8-sig') as file:
-    dati = json.load(file)["Foglio1"]
+    data = json.load(file)["Foglio1"]
 
-# Mappa delle province
-provincie = {
+# Province map
+provinces = {
     "AG": "Agrigento",
     "AL": "Alessandria",
     "AN": "Ancona",
@@ -133,17 +133,17 @@ provincie = {
     "VT": "Viterbo"
 }
 
-# Sostituisci le sigle delle province con i nomi delle province
-dati = sostituisci_province(dati)
+# Replace province abbreviations with province names
+data = replace_provinces(data)
 
-# Elimina i campi specificati da ogni elemento della lista
-dati = elimina_campi(dati)
+# Remove specified fields from each element of the list
+data = remove_fields(data)
 
-# Creazione del nuovo oggetto JSON con le specifiche indicate
-nuovo_dati = {"Foglio1": dati}
+# Creating the new JSON object with the specified specifications
+new_data = {"Foglio1": data}
 
-# Scrivi i dati modificati su un nuovo file JSON
-with open('country-province.cities.json', 'w') as file:
-    json.dump(nuovo_dati, file, indent=4)
+# Write the modified data to a new JSON file
+with open('country-province-cities.json', 'w') as file:
+    json.dump(new_data, file, indent=4)
 
-print("File 'country-province-cities.json' creato con successo.")
+print("File 'country-province-cities.json' created successfully.")
