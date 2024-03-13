@@ -17,7 +17,7 @@ def elimina_campi(dati):
     return dati
 
 # Carica il file JSON
-with open('dati.json', encoding='utf-8-sig') as file:
+with open('italy-cities.json', encoding='utf-8-sig') as file:
     dati = json.load(file)["Foglio1"]
 
 # Mappa delle province
@@ -143,7 +143,7 @@ dati = elimina_campi(dati)
 nuovo_dati = {"Foglio1": dati}
 
 # Scrivi i dati modificati su un nuovo file JSON
-with open('dati_modificati.json', 'w') as file:
+with open('country-province.cities.json', 'w') as file:
     json.dump(nuovo_dati, file, indent=4)
 
-print("File 'dati_modificati.json' creato con successo.")
+print("File 'country-province-cities.json' creato con successo.")
