@@ -1,42 +1,42 @@
 import json
 
-def genera_mappa_comuni(file_json, file_txt):
-    with open(file_json) as file:
-        dati = json.load(file)["Foglio1"]
+def generate_city_map(json_file, txt_file):
+    with open(json_file) as file:
+        data = json.load(file)["Foglio1"]
 
-    mappa_comuni = {}
+    city_map = {}
 
-    for elemento in dati:
-        regione = elemento["regione"]
-        provincia = elemento["provincia"]
-        comune = elemento["comune"]
+    for element in data:
+        region = element["regione"]
+        province = element["provincia"]
+        city = element["comune"]
 
-        if regione not in mappa_comuni:
-            mappa_comuni[regione] = {}
+        if region not in city_map:
+            city_map[region] = {}
 
-        if provincia not in mappa_comuni[regione]:
-            mappa_comuni[regione][provincia] = []
+        if province not in city_map[region]:
+            city_map[region][province] = []
 
-        mappa_comuni[regione][provincia].append(comune)
+        city_map[region][province].append(city)
 
-    with open(file_txt, 'w') as f:
-        for regione, province in mappa_comuni.items():
-            f.write('"' + regione + '": {\n')
-            for provincia, comuni in province.items():
-                f.write('    "' + provincia + '": [')
-                for idx, comune in enumerate(comuni):
-                    f.write('"' + comune + '"')
-                    if idx != len(comuni) - 1:
+    with open(txt_file, 'w') as f:
+        for region, provinces in city_map.items():
+            f.write('"' + region + '": {\n')
+            for province, cities in provinces.items():
+                f.write('    "' + province + '": [')
+                for idx, city in enumerate(cities):
+                    f.write('"' + city + '"')
+                    if idx != len(cities) - 1:
                         f.write(", ")
                 f.write("],\n")
             f.write("},\n")
 
-# File JSON creato precedentemente
-file_json = 'regioni-province-città.json'
-# File di testo dove verrà scritta la mappa dei comuni
-file_txt = 'mappa_comuni_dart.txt'
+# JSON file created earlier
+json_file = 'regions-provinces-cities.json'
+# Text file where the city map will be written
+txt_file = 'city_map.txt'
 
-# Generare la mappa dei comuni nel file di testo
-genera_mappa_comuni(file_json, file_txt)
+# Generate the city map into the text file
+generate_city_map(json_file, txt_file)
 
-print("Mappa dei comuni generata correttamente nel file:", file_txt)
+print("City map generated successfully in the file:", txt_file)
